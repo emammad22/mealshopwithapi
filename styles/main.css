@@ -10,6 +10,18 @@ body {
     margin: 0 auto;
 }
 
+@media screen and (max-width:700px) {
+    .container{
+        padding:0 30px;
+    }
+}
+
+@media screen and (max-width:1200px) {
+    .container{
+        padding: 0 20px;
+    }
+}
+
 /* header css begin */
 
 .header .header-inner {
@@ -71,41 +83,89 @@ body {
 
 /* main css begin */
 
-.main-inner {
+.main-inner{
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
-    gap: 30px;
-    font-family: "Open Sans", sans-serif;
+    gap: 32px;
+    justify-content: center;
 }
 
-.main-inner .product-card {
-    width: 400px;
-    background-color: #8f44fd;
-    /* border: 1px solid black; */
-}
-
-.product-card .prod-img {
+.main-inner .main-head{
+    flex-basis: 100%;
     text-align: center;
+    font-family: "Open Sans", sans-serif;
+    margin-bottom: 50px;
+}
+
+.main-inner .product-card{
+    display: flex;
+    flex-direction: column;
+    border-radius: 30px;
+    background-color: #8f44fd;
+    box-shadow: 4px 3px 21px 2px rgba(0,0,0,0.82);
+    align-items: center;
+    /* width: 350px; */
+    flex-basis:25% ;
+    font-family: "Open Sans", sans-serif;
+    color: #fff;
+}
+
+.main-inner .prod-img{
+    width: 100%;
+}
+
+.prod-img img{
+    width: 100%;
+    border-radius: 30px 30px 0 0;
+}
+
+.main-inner .product-head .prod-name{
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.main-inner .prod-info{
+    margin-bottom: 20px;
+}
+
+.prod-info .information{
+    width: 150px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    background: rgb(255, 94, 0);
+    color: #fff;
+    font-size: 14px;
     position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: all 0.4s ease;
 }
 
-.prod-img img {
-    width: 250px;
-}
-
-.prod-img .prod-info{
+.prod-info .information::before{
+    content: '';
     position: absolute;
+    width: 150px;
+    height: 40px;
     top: 0;
     left: 0;
-    background-color: azure;
-    transition: opacity 0.5s ease;
-    overflow: hidden;
-    opacity: 0;
-    font-size: 11.6px;
+    transform: translateX(-150px);
+    background:rgb(6, 102, 227);
+    border-radius: 5px;
+    z-index: -1;
+    transition: all 0.4s ease;
+
 }
 
-.product-card .prod-img:hover .prod-info{
-    opacity: 1;
+.prod-info .information:hover::before{
+    transform: translateX(0);
 }
+
+@media screen and (max-width:700px) {
+    .main-inner{
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
 /* main css end */

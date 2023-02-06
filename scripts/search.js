@@ -9,36 +9,32 @@ function loadProduct(e) {
     e.preventDefault();
     const xhr = new XMLHttpRequest();
 
-    xhr.open('GET', `https://www.themealdb.com/api/json/v1/1/categories.php`, true);
+    xhr.open('GET', `https://www.themealdb.com/api/json/v1/1/filter.php?i=${search.value.trim()}`, true);
 
     xhr.onload = function () {
         let products = JSON.parse(this.responseText);
-
-
-        for (let i = 0; i < products.categories.length; i++) {
-
-            if (search.value.match(products.categories[i].strCategory)) {
-                console.log(products.categories[i]);
+        if (products.meals) {
+            products.meals.forEach(element => {
+                console.log(products.meals);
 
                 list.innerHTML += `
                 <div class="product-card">
-                         <div class="prod-img">
-                             <img src="${products.categories[i].strCategoryThumb}" alt="product">
-                            <h2 class="prod-name">${products.categories[i].strCategory}</h2>
-                            <div class="prod-info">
-                                <p class="prod-about">${products.categories[i].strCategoryDescription}</p>
-                            </div>
-                        </div>
+                    <div class="prod-img">
+                        <img src="${element.strMealThumb}" alt="${element.strMeal}">
                     </div>
+                    <div class="product-head">
+                        <h2 class="prod-name">${element.strMeal}</h2>
+                    </div>
+                    <div class="prod-info">
+                        <button class="information">Get Information</button>
+                    </div>
+                </div>
                 `
-                break;
-            } else {
-                console.log("product is not available");
-                continue;
-            }
+            });
         }
-    }
 
+        // }
+    }
     xhr.send();
 }
 
