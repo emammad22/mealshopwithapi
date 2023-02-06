@@ -13,11 +13,12 @@ function loadProduct(e) {
 
     xhr.onload = function () {
         let products = JSON.parse(this.responseText);
+        let html = '';
         if (products.meals) {
             products.meals.forEach(element => {
                 console.log(products.meals);
 
-                list.innerHTML += `
+                html += `
                 <div class="product-card">
                     <div class="prod-img">
                         <img src="${element.strMealThumb}" alt="${element.strMeal}">
@@ -33,24 +34,9 @@ function loadProduct(e) {
             });
         }
 
+        list.innerHTML = html;
+
         // }
     }
     xhr.send();
 }
-
-
-
-
-   // products.categories.forEach(meal => {
-                //     list.innerHTML += `
-                    // <div class="product-card">
-                    //      <div class="prod-img">
-                    //          <img src="${meal.strCategoryThumb}" alt="product">
-                    //         <h2 class="prod-name">${meal.strCategory}</h2>
-                    //         <div class="prod-info">
-                    //             <p class="prod-about">${meal.strCategoryDescription}</p>
-                    //         </div>
-                    //     </div>
-                    // </div>
-                //     `
-                // });
