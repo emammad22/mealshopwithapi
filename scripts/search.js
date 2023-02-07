@@ -3,6 +3,9 @@ var list = document.getElementById('list');
 var details = document.getElementById('details');
 var instructions = document.getElementById('instructions');
 var closeRecipe = document.getElementById('closeBtn');
+var loader = document.getElementById('load');
+
+
 // event listeners
 search.addEventListener('input', loadProduct);
 list.addEventListener('click', getRecipe);
@@ -12,7 +15,7 @@ closeRecipe.addEventListener('click', () => {
     list.style.filter = "blur(0px)";
 })
 
-// requests
+//  XMLHttp requests
 const xhr = new XMLHttpRequest();
 
 xhr.open('GET', 'https://www.themealdb.com/api/json/v1/1/filter.php?i=', true);
@@ -46,34 +49,45 @@ xhr.send();
 function loadProduct(e) {
 
     e.preventDefault();
-    xhr.open('GET', `https://www.themealdb.com/api/json/v1/1/filter.php?i=${search.value.trim()}`, true);
+    loader.style.display = "block";
+    setTimeout(() => {
+        xhr.open('GET', `https://www.themealdb.com/api/json/v1/1/filter.php?i=${search.value.trim()}`, true);
+        xhr.onload = function () {
+            let products = JSON.parse(this.responseText);
 
-    xhr.onload = function () {
-        let products = JSON.parse(this.responseText);
+            let html = '';
+            loader.style.display = "none";
+            if (products.meals) {
+                products.meals.forEach(element => {
+                    html += `
+                    <div class="product-card" >
+                        <div class="prod-img">
+                            <img src="${element.strMealThumb}" alt="${element.strMeal}">
+                        </div>
+                        <div class="product-head">
+                            <h2 class="prod-name">${element.strMeal}</h2>
+                        </div>
+                        <div class="prod-info" >
+                            <button class="information" data-id = ${element.idMeal}>Get Information</button>
+                        </div>
+                    </div>
+                    `
+                    list.classList.remove('notFound');
+                    list.classList.add('products');
+                });
+            } else {
+                list.classList.remove('products');
+                list.classList.add("notFound");
+                html += "Sorry, this type product is not available...";
+            }
 
-        let html = '';
-        if (products.meals) {
-            products.meals.forEach(element => {
-                html += `
-                <div class="product-card" >
-                    <div class="prod-img">
-                        <img src="${element.strMealThumb}" alt="${element.strMeal}">
-                    </div>
-                    <div class="product-head">
-                        <h2 class="prod-name">${element.strMeal}</h2>
-                    </div>
-                    <div class="prod-info" >
-                        <button class="information" data-id = ${element.idMeal}>Get Information</button>
-                    </div>
-                </div>
-                `
-            });
+            list.innerHTML = html;
+
         }
+        xhr.send();
 
-        list.innerHTML = html;
+    }, 6100);
 
-    }
-    xhr.send();
 }
 
 function getRecipe(e) {

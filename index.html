@@ -38,21 +38,23 @@
 
     <main class="main">
         <div class="container">
-            <h1 class="main-head">Your Search Results depends on ingredients :</h1>
-
-            <div class="main-inner">
-                <div class="products" id="list">
-
+            <div class="main-inner" id="main-inner">
+                <h1 class="main-head">Your Search Results depends on ingredients :</h1>
+                <div class="loader-container">
+                    <div class="loader" id="load"></div>
                 </div>
+                    <div class="products" id="list">
 
-                <div class="products-detail" id="instructions">
-                    <button class="close" id="closeBtn"><i class="fa-sharp fa-solid fa-xmark"></i></button>
-                    <div class="recipe-modal" id="details">
+                    </div>
 
+                    <div class="products-detail" id="instructions">
+                        <button class="close" id="closeBtn"><i class="fa-sharp fa-solid fa-xmark"></i></button>
+                        <div class="recipe-modal" id="details">
+
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     </main>
     <script src="./scripts/search.js"></script>
 </body>
