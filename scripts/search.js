@@ -1,9 +1,16 @@
 var search = document.getElementById('reveal');
 var list = document.getElementById('list');
-var recipeBtn = document.getElementById('recipe');
+var details = document.getElementById('details');
+var instructions = document.getElementById('instructions');
+var closeRecipe = document.getElementById('closeBtn');
 // event listeners
 search.addEventListener('input', loadProduct);
 list.addEventListener('click', getRecipe);
+closeRecipe.addEventListener('click', () => {
+    details.innerHTML = "";
+    instructions.style.display = "none";
+    list.style.filter = "blur(0px)";
+})
 
 // requests
 const xhr = new XMLHttpRequest();
@@ -71,26 +78,28 @@ function loadProduct(e) {
 
 function getRecipe(e) {
     e.preventDefault();
-    let clickParent = e.target.parentElement.parentElement;
-    console.log(clickParent);
     let clickEl = e.target.getAttribute('data-id');
     console.log(clickEl);
+
     xhr.open('GET', `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${clickEl}`, true);
     if (e.target.classList.contains("information")) {
+        let html = '';
+
         xhr.onload = function () {
             let data = JSON.parse(this.responseText);
-            list.innerHTML += `
-        <div class="recipe-modal">
-        <div class="recipe-header">
-            <button class="close"><i class="fa-sharp fa-solid fa-xmark"></i></button>
-            <h1 class="prod-name">${data.meals[0].strMeal}</h1>
-        </div>
-        <p class="instructions">${data.meals[0].strInstructions}</p>
-        <div class="meal-img">
-            <img src="${data.meals[0].strMealThumb}" alt="#">
-        </div>
-    </div>
+            html = `
+                <div class="recipe-header">
+                 <h1 class="prod-name">${data.meals[0].strMeal}</h1>
+                </div>
+                <p class="instructions">${data.meals[0].strInstructions}</p>
+                <div class="meal-img">
+                <img src="${data.meals[0].strMealThumb}" alt="#">
+                </div>
         `
+            details.innerHTML = html;
+            instructions.style.display = "block";
+            list.style.filter = "blur(10px)";
+
         }
     }
     xhr.send();
