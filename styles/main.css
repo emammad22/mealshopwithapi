@@ -16,7 +16,7 @@ body {
     }
 }
 
-@media screen and (max-width:1200px) {
+@media screen and (max-width:1400px) {
     .container{
         padding: 0 20px;
     }
@@ -69,8 +69,8 @@ body {
     border: 1px solid transparent;
     border-radius: 50%;
     background: #8f44fd;
-    top: -18.3px;
-    left: 2px;
+    top: -17.9px;
+    left: 3px;
     padding: 0;
     text-align: center;
 }
@@ -79,22 +79,35 @@ body {
     padding-top: 12px;
 }
 
+@media screen and (max-width: 700px) {
+    .header .header-inner {
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+    .search span{
+        top: -16.9px;
+    }
+}
 /* header css end */
 
 /* main css begin */
 
 .main-inner{
     display: flex;
-    flex-wrap: wrap;
     gap: 32px;
     justify-content: center;
+    flex-wrap: wrap;
+    z-index: -99;
 }
 
-.main-inner .main-head{
+.main-head{
     flex-basis: 100%;
     text-align: center;
     font-family: "Open Sans", sans-serif;
     margin-bottom: 50px;
+    color:rgb(255, 94, 0);
 }
 
 .main-inner .product-card{
@@ -107,10 +120,11 @@ body {
     flex-basis:25% ;
     font-family: "Open Sans", sans-serif;
     color: #fff;
+    position: relative;
 }
 
 .main-inner .prod-img{
-    width: 100%;
+    flex-basis: 100%;
 }
 
 .prod-img img{
@@ -121,6 +135,7 @@ body {
 .main-inner .product-head .prod-name{
     font-size: 20px;
     font-weight: 400;
+    text-align: center;
 }
 
 .main-inner .prod-info{
@@ -160,11 +175,96 @@ body {
     transform: translateX(0);
 }
 
-@media screen and (max-width:700px) {
+.recipe-modal{
+    position: fixed;
+    width: 800px;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius:15px ;
+    color: #ffffff;
+    background:rgb(255, 94, 0);
+    overflow-y: scroll;
+    z-index: 99;
+    transition: transform 0.4s ease;
+    box-shadow: 4px 3px 21px 2px rgba(0,0,0,0.82);
+    padding: 0 30px;
+    overflow-x: hidden;
+
+}
+
+.recipe-modal::-webkit-scrollbar{
+    width: 5px;
+    overflow: hidden;
+}
+.recipe-modal::-webkit-scrollbar-track{
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 50px;
+}
+
+.recipe-modal::-webkit-scrollbar-thumb{
+    background: red;
+    border-radius: 20px;
+}
+
+.recipe-modal::-webkit-scrollbar-thumb:hover{
+    background: rgb(211, 75, 75);
+}
+
+
+.recipe-modal .instructions{
+    text-align: center;
+    font-family: "Open Sans", sans-serif;
+}
+
+.recipe-modal .recipe-header{
+    position: relative;
+}
+
+.recipe-header .prod-name{
+    margin-top:40px ;
+}
+
+.recipe-header .close{
+    position: absolute;
+    top: 10px;
+    right: -250px;
+    background: none;
+    border: none;
+    font-size: 30px;
+    color: #ffffff;
+}
+
+.recipe-modal .meal-img{
+}
+
+.recipe-modal .meal-img img{
+    width: 400px;
+    border-radius: 50%;
+
+}
+
+
+@media screen and (max-width:800px) {
     .main-inner{
         flex-direction: column;
         align-items: center;
+        flex-basis: 100%;
     }
+
+    .main-head{
+        font-size: 25px;
+    }
+
+    .main-inner .product-card{
+        width: 80%;
+    }
+
+    
 }
 
 /* main css end */
