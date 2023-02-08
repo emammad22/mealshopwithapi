@@ -4,10 +4,11 @@ var details = document.getElementById('details');
 var instructions = document.getElementById('instructions');
 var closeRecipe = document.getElementById('closeBtn');
 var loader = document.getElementById('load');
+var form = document.getElementById('form');
 
 
 // event listeners
-search.addEventListener('input', loadProduct);
+form.addEventListener('submit', loadProduct);
 list.addEventListener('click', getRecipe);
 closeRecipe.addEventListener('click', () => {
     details.innerHTML = "";
@@ -47,7 +48,6 @@ xhr.send();
 
 // searching process
 function loadProduct(e) {
-
     e.preventDefault();
     loader.style.display = "block";
     setTimeout(() => {
@@ -79,13 +79,13 @@ function loadProduct(e) {
                 list.classList.remove('products');
                 list.classList.add("notFound");
                 html += "Sorry, this type product is not available...";
-            }
 
+            }
             list.innerHTML = html;
 
         }
         xhr.send();
-
+        form.reset();
     }, 6100);
 
 }
